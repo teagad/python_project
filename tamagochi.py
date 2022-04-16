@@ -33,7 +33,7 @@ class tamagochi:
             with open('data.pickle', 'wb') as f:
                 pickle.dump(dic, f)
         except Exception:
-
+            dic = {}
             dic[tamagochi] = [str(time.ctime()), str(hunger), str(happines)]
             with open('data.pickle', 'wb') as f:
                 pickle.dump(dic, f)
