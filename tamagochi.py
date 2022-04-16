@@ -1,4 +1,5 @@
 import time
+import pickle
 
 
 class tamagochi:
@@ -8,23 +9,34 @@ class tamagochi:
         self.time = 0
         self.date = 0
 
-    def getinfo(self):
-        with open('data.txt') as f:
-            lines = f.readlines()
-        self.date = self.coverter(lines[0].split()[3])
-        self.hunger = int(lines[1][:-1])
-        self.happines = int(lines[2])
-        f.close()
+    def getinfo(self, tamagochi):
+        try:
+            with open('data.pickle', 'rb') as f:
+                dic = pickle.load(f)
+                print(dic)
+                self.date = self.coverter(dic[tamagochi][0].split()[3])
+                self.hunger = int(dic[tamagochi][1])
+                self.happines = int(dic[tamagochi][2])
+        except Exception:
+            self.date = self.coverter(time.ctime().split()[3])
+            self.hunger = int(20)
+            self.happines = int(20)
 
-    def setinfo(self, hunger=None, happines=None):
-        if not hunger and not happines:
+    def setinfo(self, tamagochi, hunger=None, happines=None):
+        if hunger == None:
             hunger = self.hunger
             happines = self.happines
-        with open('data.txt', 'w') as f:
-            f.write(str(time.ctime()) + '\n')
-            f.write(str(hunger) + '\n')
-            f.write(str(happines))
-        f.close()
+        try:
+            with open('data.pickle', 'rb') as f:
+                dic = pickle.load(f)
+            dic[tamagochi] = [str(time.ctime()), str(hunger), str(happines)]
+            with open('data.pickle', 'wb') as f:
+                pickle.dump(dic, f)
+        except Exception:
+
+            dic[tamagochi] = [str(time.ctime()), str(hunger), str(happines)]
+            with open('data.pickle', 'wb') as f:
+                pickle.dump(dic, f)
 
     def coverter(self, time2):
         tim = [*map(int, time2.split(':'))]

@@ -13,6 +13,9 @@ class Background(pygame.sprite.Sprite):
         self.rect.left, self.rect.top = location
 
 
+# dict of all tamagochi
+tamagochis = {"tamagochi1": "tamagochi1.png", "tamagochi2": "tamagochi2.png", "tamagochi3": "tamagochi3.png"}
+
 screen = pygame.display.set_mode((700, 700))
 
 # imported module
@@ -26,8 +29,35 @@ screen.blit(BackGround.image, BackGround.rect)
 # title
 pygame.display.set_caption("Russian Tamagochi")
 
+# choosing tamagochi
+k = 0
+for i in tamagochis.values():
+    image = pygame.image.load(i)
+    image = pygame.transform.scale(image, (300, 300))
+    screen.blit(image, (k, 100))
+    k += 200
+pygame.display.update()
+Running = True
+while Running:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            Running = False
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            if 0 <= mouse[0] <= 300 and 100 <= mouse[1] <= 400:
+                winer = tamagochis["tamagochi1"]
+                Running = False
+            if 200 <= mouse[0] <= 500 and 100 <= mouse[1] <= 400:
+                winer = tamagochis["tamagochi2"]
+                Running = False
+            if 400 <= mouse[0] <= 600 and 100 <= mouse[1] <= 400:
+                winer = tamagochis["tamagochi3"]
+                Running = False
+    mouse = pygame.mouse.get_pos()
+
+screen.fill([1, 254, 104])
+screen.blit(BackGround.image, BackGround.rect)
 # placing tamagochi picture
-image = pygame.image.load('tamagochi.png')
+image = pygame.image.load(winer)
 image = pygame.transform.scale(image, (300, 300))
 screen.blit(image, (100, 400))
 
@@ -83,7 +113,7 @@ while Running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             try:
-                tamagochik.setinfo()
+                tamagochik.setinfo(winer)
             except NameError:
                 pass
             Running = False
@@ -109,7 +139,7 @@ while Running:
             if x2 <= mouse[0] <= x2 + width and y2 <= mouse[1] <= y2 + height and clickable:
                 clickable = False
                 tamagochik = tamagochi()
-                tamagochik.getinfo()
+                tamagochik.getinfo(winer)
                 tamagochik.time = time.time()
                 events(tamagochik.coverter(time.ctime().split()[3]) - tamagochik.date)
                 # hunger
@@ -170,7 +200,6 @@ while Running:
                     tamagochik.happines -= 1 * int(delta / 60)
             else:
                 delta = time.time() - tamagochik.time
-                print(delta)
                 if delta > 60:
                     tamagochik.time = time.time()
                     tamagochik.hunger += 1
@@ -192,7 +221,7 @@ while Running:
                     screen.blit(text_surface3, (input_rect3.x + 5, input_rect3.y + 5))
                     screen.blit(text_surface4, (input_rect3.x + 5, input_rect3.y + 20))
                     pygame.display.update()
-                    tamagochik.setinfo(20, 20)
+                    tamagochik.setinfo(winer, 20, 20)
                     time.sleep(5)
                     Running = False
                 elif tamagochik.hunger > 30:
@@ -212,7 +241,7 @@ while Running:
                     screen.blit(text_surface3, (input_rect3.x + 5, input_rect3.y + 5))
                     screen.blit(text_surface4, (input_rect3.x + 5, input_rect3.y + 20))
                     pygame.display.update()
-                    tamagochik.setinfo(20, 20)
+                    tamagochik.setinfo(winer, 20, 20)
                     time.sleep(5)
                     Running = False
                 elif tamagochik.happines < 5:
