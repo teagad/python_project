@@ -9,32 +9,32 @@ class tamagochi:
         self.time = 0
         self.date = 0
 
-    def getinfo(self, tamagochi):
+    def getinfo(self,profile, tamagochi):
         try:
             with open('data.pickle', 'rb') as f:
                 dic = pickle.load(f)
                 print(dic)
-                self.date = self.coverter(dic[tamagochi][0].split()[3])
-                self.hunger = int(dic[tamagochi][1])
-                self.happines = int(dic[tamagochi][2])
+                self.date = self.coverter(dic[(profile,tamagochi)][0].split()[3])
+                self.hunger = int(dic[(profile,tamagochi)][1])
+                self.happines = int(dic[(profile,tamagochi)][2])
         except Exception:
             self.date = self.coverter(time.ctime().split()[3])
             self.hunger = int(20)
             self.happines = int(20)
 
-    def setinfo(self, tamagochi, hunger=None, happines=None):
+    def setinfo(self,profile, tamagochi, hunger=None, happines=None):
         if hunger == None:
             hunger = self.hunger
             happines = self.happines
         try:
             with open('data.pickle', 'rb') as f:
                 dic = pickle.load(f)
-            dic[tamagochi] = [str(time.ctime()), str(hunger), str(happines)]
+            dic[(profile,tamagochi)] = [str(time.ctime()), str(hunger), str(happines)]
             with open('data.pickle', 'wb') as f:
                 pickle.dump(dic, f)
         except Exception:
             dic = {}
-            dic[tamagochi] = [str(time.ctime()), str(hunger), str(happines)]
+            dic[(profile,tamagochi)] = [str(time.ctime()), str(hunger), str(happines)]
             with open('data.pickle', 'wb') as f:
                 pickle.dump(dic, f)
 

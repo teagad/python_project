@@ -1,8 +1,18 @@
+import profile
 import time
 
 import pygame
 from tamagochi import tamagochi
 
+# imported module
+pygame.init()
+pg = pygame
+
+
+COLOR_INACTIVE = pg.Color('green')
+COLOR_ACTIVE = pg.Color('dodgerblue2')
+FONT = pg.font.Font(None, 32)
+Profile = ""
 
 class Background(pygame.sprite.Sprite):
     def __init__(self, image_file, location):
@@ -12,14 +22,57 @@ class Background(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.left, self.rect.top = location
 
+class InputBox:
+
+    def __init__(self, x, y, w, h, text=''):
+        self.rect = pg.Rect(x, y, w, h)
+        self.color = COLOR_INACTIVE
+        self.text = text
+        self.txt_surface = FONT.render(text, True, self.color)
+        self.active = False
+
+    def handle_event(self, event, used):
+        if event.type == pg.MOUSEBUTTONDOWN:
+            # If the user clicked on the input_box rect.
+            if self.rect.collidepoint(event.pos):
+                # Toggle the active variable.
+                self.active = not self.active
+            else:
+                self.active = False
+            # Change the current color of the input box.
+            self.color = COLOR_ACTIVE if self.active else COLOR_INACTIVE
+        if event.type == pg.KEYDOWN:
+            if self.active:
+                if event.key == pg.K_RETURN:
+                    global Profile
+                    Profile = self.text
+                    used = False
+                    self.text = ''
+                elif event.key == pg.K_BACKSPACE:
+                    self.text = self.text[:-1]
+                else:
+                    self.text += event.unicode
+                # Re-render the text.
+                self.txt_surface = FONT.render(self.text, True, self.color)
+
+    def update(self):
+        # Resize the box if the text is too long.
+        width = max(200, self.txt_surface.get_width()+10)
+        self.rect.w = width
+
+    def draw(self, screen):
+        # Blit the text.
+        screen.blit(self.txt_surface, (self.rect.x+5, self.rect.y+5))
+        # Blit the rect.
+        pg.draw.rect(screen, self.color, self.rect, 2)
+
 
 # dict of all tamagochi
 tamagochis = {"tamagochi1": "tamagochi1.png", "tamagochi2": "tamagochi2.png", "tamagochi3": "tamagochi3.png"}
 
 screen = pygame.display.set_mode((700, 700))
 
-# imported module
-pygame.init()
+
 
 # background_image
 BackGround = Background('background_image.png', [0, 0])
@@ -36,12 +89,24 @@ for i in tamagochis.values():
     image = pygame.transform.scale(image, (300, 300))
     screen.blit(image, (k, 100))
     k += 200
+
+base_font = pygame.font.Font(None, 32)
+happines_text = 'Write Profile name and press enter then chouse animal'
+input_rect1 = pygame.Rect(100, 550, 200, 64)
+text_surface1 = base_font.render(happines_text, True, (255, 255, 255))
+screen.blit(text_surface1, (input_rect1.x + 5, input_rect1.y + 5))
+
+input_box1 = InputBox(250, 600, 300, 64)
 pygame.display.update()
+clock = pg.time.Clock()
 Running = True
+used = True
 while Running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             Running = False
+        if used:
+            input_box1.handle_event(event,used)
         if event.type == pygame.MOUSEBUTTONDOWN:
             if 0 <= mouse[0] <= 300 and 100 <= mouse[1] <= 400:
                 winer = tamagochis["tamagochi1"]
@@ -52,6 +117,10 @@ while Running:
             if 400 <= mouse[0] <= 600 and 100 <= mouse[1] <= 400:
                 winer = tamagochis["tamagochi3"]
                 Running = False
+        input_box1.update()
+        input_box1.draw(screen)
+        pg.display.flip()
+        clock.tick(30)
     mouse = pygame.mouse.get_pos()
 
 screen.fill([1, 254, 104])
@@ -113,7 +182,7 @@ while Running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             try:
-                tamagochik.setinfo(winer)
+                tamagochik.setinfo(Profile,winer)
             except NameError:
                 pass
             Running = False
@@ -139,7 +208,7 @@ while Running:
             if x2 <= mouse[0] <= x2 + width and y2 <= mouse[1] <= y2 + height and clickable:
                 clickable = False
                 tamagochik = tamagochi()
-                tamagochik.getinfo(winer)
+                tamagochik.getinfo(Profile,winer)
                 tamagochik.time = time.time()
                 events(tamagochik.coverter(time.ctime().split()[3]) - tamagochik.date)
                 # hunger
@@ -221,7 +290,7 @@ while Running:
                     screen.blit(text_surface3, (input_rect3.x + 5, input_rect3.y + 5))
                     screen.blit(text_surface4, (input_rect3.x + 5, input_rect3.y + 20))
                     pygame.display.update()
-                    tamagochik.setinfo(winer, 20, 20)
+                    tamagochik.setinfo(Profile,winer, 20, 20)
                     time.sleep(5)
                     Running = False
                 elif tamagochik.hunger > 30:
@@ -241,7 +310,7 @@ while Running:
                     screen.blit(text_surface3, (input_rect3.x + 5, input_rect3.y + 5))
                     screen.blit(text_surface4, (input_rect3.x + 5, input_rect3.y + 20))
                     pygame.display.update()
-                    tamagochik.setinfo(winer, 20, 20)
+                    tamagochik.setinfo(Profile,winer, 20, 20)
                     time.sleep(5)
                     Running = False
                 elif tamagochik.happines < 5:
