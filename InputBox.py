@@ -3,22 +3,19 @@ import pygame
 pygame.init()
 pg = pygame
 
-COLOR_INACTIVE = pg.Color('green')
-COLOR_ACTIVE = pg.Color('dodgerblue2')
-FONT = pg.font.Font(None, 32)
-Profile = ""
-
 
 class InputBox:
 
     def __init__(self, x, y, w, h, text=''):
         self.rect = pg.Rect(x, y, w, h)
-        self.color = COLOR_INACTIVE
+        self.color = pg.Color('green')
         self.text = text
-        self.txt_surface = FONT.render(text, True, self.color)
+        self.txt_surface = pg.font.Font(None, 32).render(text, True, self.color)
         self.active = False
 
     def handle_event(self, event):
+        COLOR_INACTIVE = pg.Color('green')
+        COLOR_ACTIVE = pg.Color('dodgerblue2')
         if event.type == pg.MOUSEBUTTONDOWN:
             # If the user clicked on the input_box rect.
             if self.rect.collidepoint(event.pos):
@@ -31,7 +28,6 @@ class InputBox:
         if event.type == pg.KEYDOWN:
             if self.active:
                 if event.key == pg.K_RETURN:
-                    global Profile
                     x = self.text
                     self.text = ''
                     print(f"profile: {x}")
@@ -48,6 +44,7 @@ class InputBox:
         self.rect.w = width
 
     def draw(self, screen):
+        FONT = pg.font.Font(None, 32)
         # Blit the rect.
         pg.draw.rect(screen, self.color, self.rect, 2)
         # Re-render the text.

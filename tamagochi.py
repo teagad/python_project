@@ -13,7 +13,6 @@ class tamagochi:
         try:
             with open('data.pickle', 'rb') as f:
                 dic = pickle.load(f)
-                print(dic)
                 self.date = self.coverter(dic[(profile, tamagochi)][0].split()[3])
                 self.hunger = int(dic[(profile, tamagochi)][1])
                 self.happines = int(dic[(profile, tamagochi)][2])
