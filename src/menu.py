@@ -4,7 +4,7 @@ import pygame
 from src.globals import Globals
 from src.main_realization import Realization
 from src.main_logic import Game_logic
-
+pygame.init()
 
 class Menu:
     def __init__(self):
@@ -13,7 +13,6 @@ class Menu:
         self.menu_event_loop()
 
     def screen_set(self):
-        pygame.init()
         black = (0, 0, 0)
         silver = (192, 192, 192)
         button_font = pygame.font.Font(None, 32)
@@ -21,7 +20,7 @@ class Menu:
         new_profile_text = "New profile"
         new_profile_text_surface = button_font.render(new_profile_text,
                                                       True, black)
-        display_size = (500, 500)
+        display_size = (700, 500)
 
         old_profile_text = "Old profile"
         old_profile_text_surface = button_font.render(old_profile_text,
@@ -60,7 +59,7 @@ class Menu:
                         array += [lines.split()[1]]
                 array = [*map(float, array)]
                 arrays = [(b, a) for b, a in sorted(zip(array, profiles))]
-                array, profiles = zip(*array)
+                array, profiles = zip(*arrays)
                 my_font = pygame.font.SysFont('Comic Sans MS', 45)
                 start = [0, 0]
                 step = 30

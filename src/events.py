@@ -25,7 +25,7 @@ class Event():
         Globals.screen.blit(text_surface4,
                             (Globals.status_rect.x + Globals.second_line_x,
                              Globals.status_rect.y + Globals.second_line_y))
-        self.update_screen()
+        pygame.display.update()
         tamagochik.to_top()
         tamagochik.setinfo(
             Globals.Profile,
@@ -81,7 +81,7 @@ class Event():
         Globals.screen.blit(text_surface4,
                             (Globals.status_rect.x + Globals.second_line_x,
                              Globals.status_rect.y + Globals.second_line_y))
-        self.update_screen()
+        pygame.display.update()
         tamagochik.to_top()
         tamagochik.setinfo(
             Globals.Profile,

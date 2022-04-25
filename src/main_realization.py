@@ -130,7 +130,7 @@ class Realization:
 
     def check_profiles_count(self):
         profiles_str = []
-        black = (0, 0, 0)
+        red = (255, 0, 0)
         legal_profiles_count = 2
         try:
             with open('data.pickle', 'rb') as f:
@@ -140,14 +140,15 @@ class Realization:
                     if profile[0][0] not in profiles_str:
                         profiles_str += [profile[0][0]]
                 if len(profiles_str) > legal_profiles_count:
+                    Profile_array_rect = pygame.Rect(0, 450, 200, 64)
                     profile_array = 'maximum count of profiles is 3'
                     profile_array_text_surface = Globals.profile_text_font.render(
                         profile_array, True,
-                        black
+                        red
                     )
                     Globals.screen.blit(
                         profile_array_text_surface,
-                        Globals.Profile_array_rect
+                        Profile_array_rect
                     )
                     return 0
                 return 1
