@@ -1,5 +1,5 @@
 import pygame
-from src.Background import Background
+from src.background import Background
 from src.InputBox import InputBox as imbox
 
 
@@ -15,7 +15,7 @@ class Globals:
     tamagochisize = (300, 300)
     Colordelete = (30, 30, 30)
     Color_basic = (255, 255, 255)
-    delta_time = 3
+    delta_time = 60
     RectColor = (1, 254, 104, 32)
     screen = pygame.display.set_mode(screensize)
     # background_image

@@ -3,7 +3,7 @@ import pickle
 from src.globals import Globals
 
 
-class tamagochi:
+class Tamagochi:
     def __init__(self):
         self.hunger = 100
         self.happines = 100

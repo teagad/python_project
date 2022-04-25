@@ -26,7 +26,7 @@ class Menu:
         old_profile_text = "Old profile"
         old_profile_text_surface = button_font.render(old_profile_text,
                                                       True, black)
-        top_text = "Top of Tamagochi"
+        top_text = "Top of tamagochi"
         top_text_surface = button_font.render(top_text,
                                               True, black)
         x = 15
@@ -52,26 +52,33 @@ class Menu:
         # try:
         array = []
         profiles = []
-        with open('top.txt', 'r') as f:
-            for lines in f:
-                if lines != "\n":
-                    profiles += [lines.split()[0]]
-                    array += [lines.split()[1]]
-            array = [*map(float, array)]
-            arrays = [(b, a) for b, a in sorted(zip(array, profiles))]
-            array, profiles = zip(*arrays)
-            my_font = pygame.font.SysFont('Comic Sans MS', 45)
-            start = [0, 0]
-            step = 30
-            count = 1
-            for top_elem, profile in zip(array[::-1], profiles[::-1]):
-                format_float = "{:.2f}".format(top_elem)
-                text = f"{count} : {profile}-{format_float} minutes"
+        try:
+            with open('top.txt', 'r') as f:
+                for lines in f:
+                    if lines != "\n":
+                        profiles += [lines.split()[0]]
+                        array += [lines.split()[1]]
+                array = [*map(float, array)]
+                arrays = [(b, a) for b, a in sorted(zip(array, profiles))]
+                array, profiles = zip(*array)
+                my_font = pygame.font.SysFont('Comic Sans MS', 45)
+                start = [0, 0]
+                step = 30
+                count = 1
+                for top_elem, profile in zip(array[::-1], profiles[::-1]):
+                    format_float = "{:.2f}".format(top_elem)
+                    text = f"{count} : {profile}-{format_float} minutes"
+                    text_surface = my_font.render(text, False, (0, 0, 0))
+                    self.screen.blit(text_surface, (start[0], start[1]))
+                    start[1] += step
+                    count += 1
+                text = "will close in 5 sec."
                 text_surface = my_font.render(text, False, (0, 0, 0))
-                self.screen.blit(text_surface, (start[0], start[1]))
-                start[1] += step
-                count += 1
-            text = "will close in 5 sec."
+                self.screen.blit(text_surface, start)
+        except Exception:
+            start = [0, 0]
+            my_font = pygame.font.SysFont('Comic Sans MS', 45)
+            text = "Top is empty will close in 5 sec."
             text_surface = my_font.render(text, False, (0, 0, 0))
             self.screen.blit(text_surface, start)
 
