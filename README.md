@@ -1,6 +1,6 @@
 Процесс установки и запуска
 
-    1.Клонируйте репозиторий: https://github.com/teagad/python_project.git
+    1.Клонируйте репозиторий: git clone https://github.com/teagad/python_project.git
 
     2.Войти в директорию python_project: cd python_project
 
