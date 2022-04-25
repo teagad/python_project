@@ -1,6 +1,6 @@
 import pickle
 import pygame
-from events import Event
+from src.events import Event
 from src.main_logic import Game_logic
 from src.globals import Globals
 

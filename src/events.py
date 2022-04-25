@@ -1,6 +1,6 @@
-from globals import Globals
 import pygame
 import time
+from src.globals import Globals
 pygame.init()
 
 class Event():

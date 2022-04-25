@@ -1,6 +1,7 @@
 import time
 import pickle
 import pygame
+from src.events import Event
 from src.tamagochi import Tamagochi
 from src.globals import Globals
 
@@ -110,6 +111,7 @@ class Game_logic():
                                 Globals.status_rect.x + Globals.first_line_x,
                                 Globals.status_rect.y + Globals.first_line_y))
 
+
     def hunger_button_pressed(self, tamagochik):
         try:
             if tamagochik.hunger >= Globals.hunger_decrease_by_click:
@@ -154,7 +156,8 @@ class Game_logic():
         tamagochik = Tamagochi()
         tamagochik.getinfo(Globals.Profile, Globals.winer)
         tamagochik.time = time.time()
-        self.events(tamagochik,
+        eve = Event()
+        eve.events(tamagochik,
                     tamagochik.coverter(time.ctime().split()[3]) - tamagochik.date)
         # hunger
         pygame.draw.rect(Globals.screen,
@@ -221,7 +224,6 @@ class Game_logic():
             pass
 
     def update_game(self, tamagochik):
-        x = tamagochik.hunger
         pygame.draw.rect(Globals.screen,
                          Globals.RectColor, Globals.hunger_rect)
         Globals.hunger_text_surface = Globals.base_font.render(
