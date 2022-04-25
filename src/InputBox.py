@@ -10,7 +10,8 @@ class InputBox:
         self.rect = pg.Rect(x, y, w, h)
         self.color = pg.Color('green')
         self.text = text
-        self.txt_surface = pg.font.Font(None, 32).render(text, True, self.color)
+        font = pg.font.Font(None, 32)
+        self.txt_surface = font.render(text, True, self.color)
         self.active = False
 
     def handle_event(self, event):
@@ -36,7 +37,10 @@ class InputBox:
                     k = self.text[:-1]
                     self.text = k
                 else:
-                    self.text += event.unicode
+                    if len(self.text) > 6:
+                        pass
+                    else:
+                        self.text += event.unicode
 
     def update(self):
         # Resize the box if the text is too long.

@@ -1,24 +1,27 @@
 import pygame
-from Background import Background
-from InputBox import InputBox as imbox
+from src.Background import Background
+from src.InputBox import InputBox as imbox
 
 
 class Globals:
+    # main
+
     # dict of all tamagochi
-    tamagochis = {"tamagochi1": "assets/tamagochi1.png", "tamagochi2": "assets/tamagochi2.png",
+    tamagochis = {"tamagochi1": "assets/tamagochi1.png",
+                  "tamagochi2": "assets/tamagochi2.png",
                   "tamagochi3": "assets/tamagochi3.png"}
     winer = 0
-
     screensize = (700, 700)
     tamagochisize = (300, 300)
     Colordelete = (30, 30, 30)
     Color_basic = (255, 255, 255)
-    delta_time = 60
+    delta_time = 3
     RectColor = (1, 254, 104, 32)
     screen = pygame.display.set_mode(screensize)
     # background_image
     BackGround = Background('assets/background_image.png', [0, 0])
     base_font = pygame.font.Font(None, 32)
+    profile_text_font = pygame.font.Font(None, 48)
     Profile_array_rect = pygame.Rect(0, 0, 200, 64)
     Profile_text = 'Write Profile name and press enter then chouse animal'
     Profile_rect = pygame.Rect(100, 550, 200, 64)
@@ -58,6 +61,7 @@ class Globals:
     hunger_limit = 40
     vary_hungry = 30
     happines_limit = 1
+    happines_limit_top = 20
     vary_bored = 5
     bored = 7
     basic_hunger = 20
@@ -77,7 +81,18 @@ class Globals:
     third_line_x = 5
     third_line_y = 40
     time_sleep = 5
-    tamagochi_coords = [(first_tamagochi_coordinate_x, coordinate_y), (second_tamagochi_coordinate_x, coordinate_y),
+    tamagochi_coords = [(first_tamagochi_coordinate_x, coordinate_y),
+                        (second_tamagochi_coordinate_x, coordinate_y),
                         (third_tamagochi_coordinate_x, coordinate_y)]
     Running = True
     clickable = True
+    text = "Profiles : "
+    text_surface = profile_text_font.render(
+        text, True,
+        (0, 0, 0)
+    )
+
+    # menu
+    new_profile_C = (170, 100, 200, 100)
+    old_profile_C = (170, 220, 200, 100)
+    top_C = (170, 340, 200, 100)
