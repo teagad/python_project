@@ -1,9 +1,10 @@
 import pickle
 import pygame
+from src.background import Background
 from src.events import Event
-from src.main_logic import Game_logic
 from src.globals import Globals
-
+from src.InputBox import InputBox as imbox
+from src.main_logic import Game_logic
 
 class Realization:
 
@@ -12,12 +13,20 @@ class Realization:
 
     # choosing tamagochi
     def choosing_tamagochi(self, old=1):
-        Globals.screen.blit(Globals.BackGround.image, Globals.BackGround.rect)
+        first_tamagochi_coordinate_x = 0
+        second_tamagochi_coordinate_x = 200
+        third_tamagochi_coordinate_x = 400
+        coordinate_y = 100
+        tamagochi_coords = [(first_tamagochi_coordinate_x, coordinate_y),
+                    (second_tamagochi_coordinate_x, coordinate_y),
+                    (third_tamagochi_coordinate_x, coordinate_y)]
+        BackGround = Background('assets/background_image.png', [0, 0])
+        Globals.screen.blit(BackGround.image, BackGround.rect)
         if old:
             Globals.screen.blit(Globals.Profile_text_surface, Globals.Profile_rect)
         for animal, coord in zip(
                 Globals.tamagochis.values(),
-                Globals.tamagochi_coords
+                tamagochi_coords
         ):
             image = pygame.image.load(animal)
             image = pygame.transform.scale(image, Globals.tamagochisize)
@@ -26,6 +35,9 @@ class Realization:
 
     def event_loop_of_choosing_tamagochi(self, old=1):
         running = True
+        input_box1 = imbox(250, 600, 300, 64)
+        Colordelete = (30, 30, 30)
+
         # self.game.print_all_profiles()
         while running:
             for event in pygame.event.get():
@@ -34,15 +46,15 @@ class Realization:
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     running = self.game.check_choosing_tamagochi(mouse)
                 if old:
-                    x = Globals.input_box1.handle_event(event)
+                    x = input_box1.handle_event(event)
                     if x:
                         Globals.Profile = x
-                    Globals.input_box1.update()
+                    input_box1.update()
                     pygame.draw.rect(Globals.screen,
-                                     (Globals.Colordelete),
-                                     Globals.input_box1.rect
+                                     (Colordelete),
+                                     input_box1.rect
                                      )
-                    Globals.input_box1.draw(Globals.screen)
+                    input_box1.draw(Globals.screen)
                 self.game.update_screen
             mouse = pygame.mouse.get_pos()
 
@@ -103,7 +115,13 @@ class Realization:
 
     def clicked_profile(self):
         running = True
-        start_length = Globals.text_surface.get_width()
+        text = "Profiles : "
+        black = (0,0,0)
+        text_surface = Globals.profile_text_font.render(
+            text, True,
+            black
+        )
+        start_length = text_surface.get_width()
         array = self.get_profiles_length()
         letter_height = 40
         while running:
@@ -156,8 +174,9 @@ class Realization:
             return 1
 
     def start_new_profile(self):
+        screensize = (700, 700)
         pygame.display.set_caption("Russian tamagochi")
-        pygame.display.set_mode(Globals.screensize)
+        pygame.display.set_mode(screensize)
         self.choosing_tamagochi()
         self.event_loop_of_choosing_tamagochi()
         self.game.draw_background()
@@ -172,10 +191,11 @@ class Realization:
         self.main_event_loop()
 
     def start_old_profile(self):
+        screensize = (700, 700)
         self.game.print_all_profiles()
         if self.clicked_profile():
             pygame.display.set_caption("Russian tamagochi")
-            pygame.display.set_mode(Globals.screensize)
+            pygame.display.set_mode(screensize)
             self.choosing_tamagochi(0)
             self.event_loop_of_choosing_tamagochi(0)
             self.game.draw_background()

@@ -1,6 +1,7 @@
 import time
 import pickle
 import pygame
+from src.background import Background
 from src.events import Event
 from src.tamagochi import Tamagochi
 from src.globals import Globals
@@ -16,6 +17,7 @@ class Game_logic():
     def print_all_profiles(self):
         profiles_str = []
         black = (0, 0, 0)
+        Profile_array_rect = pygame.Rect(0, 0, 200, 64)
         try:
             with open('data.pickle', 'rb') as f:
                 dic = pickle.load(f)
@@ -31,7 +33,7 @@ class Game_logic():
                 )
                 Globals.screen.blit(
                     profile_array_text_surface,
-                    Globals.Profile_array_rect
+                    Profile_array_rect
                 )
             return 1
         except Exception:
@@ -42,41 +44,47 @@ class Game_logic():
             )
             Globals.screen.blit(
                 profile_array_text_surface,
-                Globals.Profile_array_rect
+                Profile_array_rect
             )
             return 0
 
     def check_choosing_tamagochi(self, mouse):
         running = True
-        if Globals.first_tamagochi_coordinate_x <= mouse[0] <= \
-                Globals.first_tamagochi_coordinate_x + \
-                Globals.tamagochisize[0] and Globals.coordinate_y <= \
+        first_tamagochi_coordinate_x = 0
+        second_tamagochi_coordinate_x = 200
+        third_tamagochi_coordinate_x = 400
+        coordinate_y = 100
+        if first_tamagochi_coordinate_x <= mouse[0] <= \
+                first_tamagochi_coordinate_x + \
+                Globals.tamagochisize[0] and coordinate_y <= \
                 mouse[1] <= \
-                Globals.coordinate_y + Globals.tamagochisize[1]:
+                coordinate_y + Globals.tamagochisize[1]:
             Globals.winer = Globals.tamagochis["tamagochi1"]
             running = False
-        if Globals.second_tamagochi_coordinate_x <= mouse[0] <= \
-                Globals.second_tamagochi_coordinate_x + \
-                Globals.tamagochisize[0] and Globals.coordinate_y <= \
-                mouse[1] <= Globals.coordinate_y + Globals.tamagochisize[1]:
+        if second_tamagochi_coordinate_x <= mouse[0] <= \
+                second_tamagochi_coordinate_x + \
+                Globals.tamagochisize[0] and coordinate_y <= \
+                mouse[1] <= coordinate_y + Globals.tamagochisize[1]:
             Globals.winer = Globals.tamagochis["tamagochi2"]
             running = False
-        if Globals.third_tamagochi_coordinate_x <= mouse[0] <= \
-                Globals.third_tamagochi_coordinate_x + \
-                Globals.tamagochisize[0] and Globals.coordinate_y <= \
+        if third_tamagochi_coordinate_x <= mouse[0] <= \
+                third_tamagochi_coordinate_x + \
+                Globals.tamagochisize[0] and coordinate_y <= \
                 mouse[1] <= \
-                Globals.coordinate_y + Globals.tamagochisize[1]:
+                coordinate_y + Globals.tamagochisize[1]:
             Globals.winer = Globals.tamagochis["tamagochi3"]
             running = False
         return running
 
     def draw_background(self):
-        Globals.screen.blit(Globals.BackGround.image, Globals.BackGround.rect)
+        BackGround = Background('assets/background_image.png', [0, 0])
+        Globals.screen.blit(BackGround.image, BackGround.rect)
 
     def place_tamagochi_picture(self):
+        tmagochi_coordinates = (100, 400)
         image = pygame.image.load(Globals.winer)
         image = pygame.transform.scale(image, Globals.tamagochisize)
-        Globals.screen.blit(image, Globals.tmagochi_coordinates)
+        Globals.screen.blit(image, tmagochi_coordinates)
 
     def making_textbox(self):
         pygame.draw.rect(
@@ -114,8 +122,9 @@ class Game_logic():
 
     def hunger_button_pressed(self, tamagochik):
         try:
-            if tamagochik.hunger >= Globals.hunger_decrease_by_click:
-                tamagochik.hunger -= Globals.hunger_decrease_by_click
+            hunger_decrease_by_click = 3
+            if tamagochik.hunger >= hunger_decrease_by_click:
+                tamagochik.hunger -= hunger_decrease_by_click
             else:
                 pygame.draw.rect(
                     Globals.screen,
@@ -196,9 +205,11 @@ class Game_logic():
 
     def button_happy(self, tamagochik):
         try:
+            happines_limit_top = 20
+            happines_increase_by_click = 3
             if tamagochik.happines <= \
-                    Globals.happines_limit_top - Globals.happines_increase_by_click:
-                tamagochik.happines += Globals.happines_increase_by_click
+                    happines_limit_top - happines_increase_by_click:
+                tamagochik.happines += happines_increase_by_click
             else:
                 pygame.draw.rect(Globals.screen,
                                  Globals.RectColor, Globals.status_rect)
@@ -249,11 +260,13 @@ class Game_logic():
                 [Globals.button_text1, Globals.button_text2, Globals.button_text3]):
             if x <= mouse[0] <= x + Globals.width and y <= mouse[1] <= \
                     y + Globals.height:
+                color_light = (170, 170, 170)
                 pygame.draw.rect(Globals.screen,
-                                 Globals.color_light, [x, y, Globals.width, Globals.height])
+                                 color_light, [x, y, Globals.width, Globals.height])
 
             else:
+                color_dark = (100, 100, 100)
                 pygame.draw.rect(Globals.screen,
-                                 Globals.color_dark, [x, y, Globals.width, Globals.height])
+                                 color_dark, [x, y, Globals.width, Globals.height])
             # superimposing the text onto our button
             Globals.screen.blit(text, (x, y))
