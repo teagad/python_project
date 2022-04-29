@@ -9,17 +9,17 @@ class Event():
         basic_happines = 20
         time_sleep = 5
         pygame.draw.rect(Globals.screen,
-                         Globals.RectColor,
+                         Globals.rectColor,
                          Globals.status_rect
                          )
         text_surface3 = Globals.base_font.render(
             "your Masha died ", True,
-            Globals.Color_basic
+            Globals.color_basic
         )
         text_surface4 = Globals.base_font.render(
             f"The game will end in {time_sleep} sec",
             True,
-            Globals.Color_basic
+            Globals.color_basic
         )
         Globals.screen.blit(text_surface3,
                             (
@@ -31,28 +31,28 @@ class Event():
         pygame.display.update()
         tamagochik.to_top()
         tamagochik.setinfo(
-            Globals.Profile,
+            Globals.profile,
             Globals.winer,
             basic_hunger,
             basic_happines
         )
         time.sleep(time_sleep)
-        Globals.Running = False
+        Globals.running = False
 
     def notice_about_hunger(self):
         pygame.draw.rect(Globals.screen,
-                         Globals.RectColor, Globals.status_rect)
+                         Globals.rectColor, Globals.status_rect)
         text_surface3 = Globals.base_font.render(
             f"status:game started",
-            True, Globals.Color_basic
+            True, Globals.color_basic
         )
         text_surface4 = Globals.base_font.render(
             f"Masha stats will drop in a minute",
-            True, Globals.Color_basic
+            True, Globals.color_basic
         )
         text_surface2 = Globals.base_font.render(
             "i am hungry!",
-            True, Globals.Color_basic
+            True, Globals.color_basic
         )
         Globals.screen.blit(text_surface2,
                             (
@@ -71,14 +71,14 @@ class Event():
         basic_happines = 20
         time_sleep = 5
         pygame.draw.rect(Globals.screen,
-                         Globals.RectColor, Globals.status_rect)
+                         Globals.rectColor, Globals.status_rect)
         text_surface3 = Globals.base_font.render(
             "Your pet died from lonliness!", True,
-            Globals.Color_basic
+            Globals.color_basic
         )
         text_surface4 = Globals.base_font.render(
             f"The game will end in {time_sleep} sec", True,
-            Globals.Color_basic
+            Globals.color_basic
         )
         Globals.screen.blit(text_surface3,
                             (
@@ -90,28 +90,28 @@ class Event():
         pygame.display.update()
         tamagochik.to_top()
         tamagochik.setinfo(
-            Globals.Profile,
+            Globals.profile,
             Globals.winer,
             basic_hunger,
             basic_happines
         )
         time.sleep(time_sleep)
-        Globals.Running = False
+        Globals.running = False
 
     def very_borred(self):
         pygame.draw.rect(Globals.screen,
-                         Globals.RectColor, Globals.status_rect)
+                         Globals.rectColor, Globals.status_rect)
         text_surface3 = Globals.base_font.render(
             f"status:game started",
-            True, Globals.Color_basic
+            True, Globals.color_basic
         )
         text_surface4 = Globals.base_font.render(
             f"Masha stats will drop in a minute",
-            True, Globals.Color_basic
+            True, Globals.color_basic
         )
         text_surface2 = Globals.base_font.render(
             "Nobody loves me!",
-            True, Globals.Color_basic
+            True, Globals.color_basic
         )
         Globals.screen.blit(text_surface2,
                             (
@@ -127,18 +127,18 @@ class Event():
 
     def borred(self):
         pygame.draw.rect(Globals.screen,
-                         Globals.RectColor, Globals.status_rect)
+                         Globals.rectColor, Globals.status_rect)
         text_surface3 = Globals.base_font.render(
             f"status:game started",
-            True, Globals.Color_basic
+            True, Globals.color_basic
         )
         text_surface4 = Globals.base_font.render(
             f"Masha stats will drop in a minute",
-            True, Globals.Color_basic
+            True, Globals.color_basic
         )
         text_surface2 = Globals.base_font.render(
             "I’m bored!",
-            True, Globals.Color_basic
+            True, Globals.color_basic
         )
         Globals.screen.blit(text_surface2,
                             (
@@ -154,18 +154,18 @@ class Event():
 
     def all_fine(self):
         pygame.draw.rect(Globals.screen,
-                         Globals.RectColor, Globals.status_rect)
+                         Globals.rectColor, Globals.status_rect)
         text_surface3 = Globals.base_font.render(
             f"status:game started",
-            True, Globals.Color_basic
+            True, Globals.color_basic
         )
         text_surface4 = Globals.base_font.render(
             f"Masha stats will drop in a minute",
-            True, Globals.Color_basic
+            True, Globals.color_basic
         )
         text_surface2 = Globals.base_font.render(
             "It`s all okay!",
-            True, Globals.Color_basic
+            True, Globals.color_basic
         )
         Globals.screen.blit(text_surface3,
                             (
@@ -181,7 +181,7 @@ class Event():
 
     def events(self, tamagochik, delta=None):
         try:
-            delta_time = 60
+            delta_time = 1###############################
             hunger_limit = 40
             happines_limit = 1
             if delta:

@@ -15,6 +15,9 @@ class InputBox:
         self.active = False
 
     def handle_event(self, event):
+        """(считывает event при нажатие мышкой на него переводится в активное состояние,
+        при нажатие enter сохраняет текст,
+        при нажатие backspace удаляет последний символ"""
         COLOR_INACTIVE = pg.Color('green')
         COLOR_ACTIVE = pg.Color('dodgerblue2')
         if event.type == pg.MOUSEBUTTONDOWN:
@@ -37,22 +40,29 @@ class InputBox:
                     k = self.text[:-1]
                     self.text = k
                 else:
-                    if len(self.text) > 6:
+                    max_line_len = 6
+                    if len(self.text) > max_line_len:
                         pass
                     else:
                         self.text += event.unicode
 
     def update(self):
-        # Resize the box if the text is too long.
-        width = max(200, self.txt_surface.get_width() + 10)
+        """Обновляет размеры InputBox если вышли за его рамки"""
+        rect_width = 200
+        delta_width = 10
+        width = max(rect_width, self.txt_surface.get_width() + delta_width)
         self.rect.w = width
 
     def draw(self, screen):
+        """Чертит нашу коробку"""
         FONT = pg.font.Font(None, 32)
         # Blit the rect.
         pg.draw.rect(screen, self.color, self.rect, 2)
         # Re-render the text.
         self.txt_surface = FONT.render(self.text, True, self.color)
         # Blit the text.
-        screen.blit(self.txt_surface, (self.rect.x + 5, self.rect.y + 5))
+        delta_x = 5
+        delta_y = 5
+        screen.blit(self.txt_surface, (self.rect.x + delta_x,
+                                         self.rect.y + delta_y))
         pygame.display.update()

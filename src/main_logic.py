@@ -15,6 +15,7 @@ class Game_logic():
         pygame.display.update()
 
     def print_all_profiles(self):
+        """Печатает профили игрока"""
         profiles_str = []
         black = (0, 0, 0)
         Profile_array_rect = pygame.Rect(0, 0, 200, 64)
@@ -40,7 +41,7 @@ class Game_logic():
             profile_array = f'Profiles : it`s empty now'
             profile_array_text_surface = Globals.profile_text_font.render(
                 profile_array, True,
-                Globals.Color_basic
+                Globals.color_basic
             )
             Globals.screen.blit(
                 profile_array_text_surface,
@@ -49,6 +50,7 @@ class Game_logic():
             return 0
 
     def check_choosing_tamagochi(self, mouse):
+        """Смотрит на какой тамагочи кликнул игрок"""
         running = True
         first_tamagochi_coordinate_x = 0
         second_tamagochi_coordinate_x = 200
@@ -77,33 +79,37 @@ class Game_logic():
         return running
 
     def draw_background(self):
+        """Рисует задний фон"""
         BackGround = Background('assets/background_image.png', [0, 0])
         Globals.screen.blit(BackGround.image, BackGround.rect)
 
     def place_tamagochi_picture(self):
+        """Располагает картинку тамагочи который выиграл на экран"""
         tmagochi_coordinates = (100, 400)
         image = pygame.image.load(Globals.winer)
         image = pygame.transform.scale(image, Globals.tamagochisize)
         Globals.screen.blit(image, tmagochi_coordinates)
 
     def making_textbox(self):
+        """Создание текстбоксов"""
         pygame.draw.rect(
             Globals.screen,
-            Globals.RectColor,
+            Globals.rectColor,
             Globals.happines_rect
         )
         pygame.draw.rect(
             Globals.screen,
-            Globals.RectColor,
+            Globals.rectColor,
             Globals.hunger_rect
         )
         pygame.draw.rect(
             Globals.screen,
-            Globals.RectColor,
+            Globals.rectColor,
             Globals.status_rect
         )
 
     def render_textboxes(self):
+        """Вывод текст боксов на экран"""
         Globals.screen.blit(
             Globals.happines_text_surface, (
                 Globals.happines_rect.x + Globals.first_line_x,
@@ -121,6 +127,7 @@ class Game_logic():
 
 
     def hunger_button_pressed(self, tamagochik):
+        """При нажатия на кнопку покормить опускает голод на 3"""
         try:
             hunger_decrease_by_click = 3
             if tamagochik.hunger >= hunger_decrease_by_click:
@@ -133,15 +140,15 @@ class Game_logic():
                 )
                 text_surface3 = Globals.base_font.render(
                     f"status:game started",
-                    True, Globals.Color_basic
+                    True, Globals.color_basic
                 )
                 text_surface4 = Globals.base_font.render(
                     f"Masha stats will drop in a minute", True,
-                    Globals.Color_basic
+                    Globals.color_basic
                 )
                 Globals.hunger_text_surface = Globals.base_font.render(
                     "I am not hungry",
-                    True, Globals.Color_basic
+                    True, Globals.color_basic
                 )
                 Globals.screen.blit(Globals.hunger_text_surface, (
                     Globals.status_rect.x + Globals.third_line_x,
@@ -162,38 +169,39 @@ class Game_logic():
             pass
 
     def live_button_pressed(self):
+        """При нажати на кнопку live начинает игру"""
         tamagochik = Tamagochi()
-        tamagochik.getinfo(Globals.Profile, Globals.winer)
+        tamagochik.getinfo(Globals.profile, Globals.winer)
         tamagochik.time = time.time()
         eve = Event()
         eve.events(tamagochik,
                     tamagochik.coverter(time.ctime().split()[3]) - tamagochik.date)
         # hunger
         pygame.draw.rect(Globals.screen,
-                         Globals.RectColor, Globals.hunger_rect)
+                         Globals.rectColor, Globals.hunger_rect)
         Globals.hunger_text_surface = Globals.base_font.render(
             f"hunger:{tamagochik.hunger}",
-            True, Globals.Color_basic)
+            True, Globals.color_basic)
         Globals.screen.blit(Globals.hunger_text_surface,
                             (
                                 Globals.hunger_rect.x + Globals.first_line_x,
                                 Globals.hunger_rect.y + Globals.first_line_y))
         # happines
         pygame.draw.rect(Globals.screen,
-                         Globals.RectColor, Globals.happines_rect)
+                         Globals.rectColor, Globals.happines_rect)
         Globals.happines_text_surface = Globals.base_font.render(
             f"happines:{tamagochik.happines}", True,
-            Globals.Color_basic)
+            Globals.color_basic)
         Globals.screen.blit(Globals.happines_text_surface, (
             Globals.happines_rect.x + Globals.first_line_x,
             Globals.happines_rect.y + Globals.first_line_y))
         # status
         pygame.draw.rect(Globals.screen,
-                         Globals.RectColor, Globals.status_rect)
+                         Globals.rectColor, Globals.status_rect)
         text_surface3 = Globals.base_font.render(
-            f"status:game started", True, Globals.Color_basic)
+            f"status:game started", True, Globals.color_basic)
         text_surface4 = Globals.base_font.render(
-            f"Masha stats will drop in a minute", True, Globals.Color_basic)
+            f"Masha stats will drop in a minute", True, Globals.color_basic)
         Globals.screen.blit(text_surface3,
                             (
                                 Globals.status_rect.x + Globals.first_line_x,
@@ -204,6 +212,7 @@ class Game_logic():
         return tamagochik
 
     def button_happy(self, tamagochik):
+        """При нажатия на кнопку обнять опускает голод на 3"""
         try:
             happines_limit_top = 20
             happines_increase_by_click = 3
@@ -212,16 +221,16 @@ class Game_logic():
                 tamagochik.happines += happines_increase_by_click
             else:
                 pygame.draw.rect(Globals.screen,
-                                 Globals.RectColor, Globals.status_rect)
+                                 Globals.rectColor, Globals.status_rect)
                 text_surface3 = Globals.base_font.render(
                     f"status:game started",
-                    True, Globals.Color_basic)
+                    True, Globals.color_basic)
                 text_surface4 = Globals.base_font.render(
                     f"Masha stats will drop in a minute",
-                    True, Globals.Color_basic)
+                    True, Globals.color_basic)
                 Globals.hunger_text_surface = Globals.base_font.render(
                     "I am not borred boss", True,
-                    Globals.Color_basic)
+                    Globals.color_basic)
                 Globals.screen.blit(Globals.hunger_text_surface, (
                     Globals.status_rect.x + Globals.third_line_x,
                     Globals.status_rect.y + Globals.third_line_y))
@@ -235,25 +244,27 @@ class Game_logic():
             pass
 
     def update_game(self, tamagochik):
+        """Обновляет экран(меняет голод и радость)"""
         pygame.draw.rect(Globals.screen,
-                         Globals.RectColor, Globals.hunger_rect)
+                         Globals.rectColor, Globals.hunger_rect)
         Globals.hunger_text_surface = Globals.base_font.render(
-            f"hunger:{tamagochik.hunger}", True, Globals.Color_basic)
+            f"hunger:{tamagochik.hunger}", True, Globals.color_basic)
         Globals.screen.blit(Globals.hunger_text_surface,
                             (
                                 Globals.hunger_rect.x + Globals.first_line_x,
                                 Globals.hunger_rect.y + Globals.first_line_y))
 
         pygame.draw.rect(Globals.screen,
-                         Globals.RectColor, Globals.happines_rect)
+                         Globals.rectColor, Globals.happines_rect)
         Globals.happines_text_surface = Globals.base_font.render(
             f"happines:{tamagochik.happines}", True,
-            Globals.Color_basic)
+            Globals.color_basic)
         Globals.screen.blit(Globals.happines_text_surface, (
             Globals.happines_rect.x + Globals.first_line_x,
             Globals.happines_rect.y + Globals.first_line_y))
 
     def mouse_is_hovered_on_button(self, mouse):
+        """При наводки на кнопку меняет цвет"""
         for x, y, text in zip(
                 [Globals.button_x1, Globals.button_x2, Globals.button_x3],
                 [Globals.button_y1, Globals.button_y2, Globals.button_y3],

@@ -14,6 +14,7 @@ class Menu:
         self.menu_event_loop()
 
     def screen_set(self):
+        """Создание экрана (700,500)"""
         black = (0, 0, 0)
         silver = (192, 192, 192)
         button_font = pygame.font.Font(None, 32)
@@ -47,6 +48,7 @@ class Menu:
         pygame.display.flip()
 
     def top_tamagochi(self):
+        """Выведения топа тамагочи на экран"""
         display_size = (500, 500)
         BackGround = Background('assets/background_image.png', [0, 0])
         self.screen = pygame.display.set_mode(display_size)
@@ -90,6 +92,7 @@ class Menu:
         self.menu_event_loop()
 
     def mouse_posesion(self):
+        """Анализатор позиции мышки"""
         real = Realization()
         game = Game_logic()
         if pygame.mouse.get_pos()[0] >= Globals.new_profile_C[0] \
@@ -121,6 +124,7 @@ class Menu:
         return 1
 
     def menu_event_loop(self):
+        """Event loop для menu"""
         menuAtivo = True
         while menuAtivo:
             for evento in pygame.event.get():

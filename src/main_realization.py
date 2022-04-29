@@ -13,6 +13,7 @@ class Realization:
 
     # choosing tamagochi
     def choosing_tamagochi(self, old=1):
+        """Располагает картинки всех тамагочи на экран чтобы выбрать"""
         first_tamagochi_coordinate_x = 0
         second_tamagochi_coordinate_x = 200
         third_tamagochi_coordinate_x = 400
@@ -23,7 +24,7 @@ class Realization:
         BackGround = Background('assets/background_image.png', [0, 0])
         Globals.screen.blit(BackGround.image, BackGround.rect)
         if old:
-            Globals.screen.blit(Globals.Profile_text_surface, Globals.Profile_rect)
+            Globals.screen.blit(Globals.profile_text_surface, Globals.profile_rect)
         for animal, coord in zip(
                 Globals.tamagochis.values(),
                 tamagochi_coords
@@ -34,6 +35,7 @@ class Realization:
         pygame.display.update()
 
     def event_loop_of_choosing_tamagochi(self, old=1):
+        """Event loop для выбора тамагочи"""
         running = True
         input_box1 = imbox(250, 600, 300, 64)
         Colordelete = (30, 30, 30)
@@ -48,7 +50,7 @@ class Realization:
                 if old:
                     x = input_box1.handle_event(event)
                     if x:
-                        Globals.Profile = x
+                        Globals.profile = x
                     input_box1.update()
                     pygame.draw.rect(Globals.screen,
                                      (Colordelete),
@@ -59,15 +61,16 @@ class Realization:
             mouse = pygame.mouse.get_pos()
 
     def main_event_loop(self):
+        """Основной event loop игры"""
         clickable = True
-        while Globals.Running:
+        while Globals.running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     try:
-                        tamagochik.setinfo(Globals.Profile, Globals.winer)
+                        tamagochik.setinfo(Globals.profile, Globals.winer)
                     except NameError:
                         pass
-                    Globals.Running = False
+                    Globals.running = False
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if Globals.button_x1 <= mouse[0] <= \
                             Globals.button_x1 + Globals.width \
@@ -97,6 +100,7 @@ class Realization:
             self.game.update_screen()
 
     def get_profiles_length(self):
+        """Находит длину названия каждого профиля """
         black = (0, 0, 0)
         profiles_str = {}
         with open('data.pickle', 'rb') as f:
@@ -114,6 +118,7 @@ class Realization:
             return profiles_str
 
     def clicked_profile(self):
+        """Ивент луп для выбора профиля"""
         running = True
         text = "Profiles : "
         black = (0,0,0)
@@ -138,7 +143,7 @@ class Realization:
                             if 5 < mouse[1] < letter_height:
                                 with open('data.pickle', 'rb') as f:
                                     dic = pickle.load(f)
-                                    Globals.Profile = list(array.keys())[i]
+                                    Globals.profile = list(array.keys())[i]
                                     print(list(array.keys())[i])
                                     return 1
                         pasts += j
@@ -147,6 +152,7 @@ class Realization:
             pygame.display.update()
 
     def check_profiles_count(self):
+        """Проверка на то может ли игрок создать нового персонажа"""
         profiles_str = []
         red = (255, 0, 0)
         legal_profiles_count = 2
@@ -174,6 +180,7 @@ class Realization:
             return 1
 
     def start_new_profile(self):
+        """Запуск игры для новичка"""
         screensize = (700, 700)
         pygame.display.set_caption("Russian tamagochi")
         pygame.display.set_mode(screensize)
@@ -191,6 +198,7 @@ class Realization:
         self.main_event_loop()
 
     def start_old_profile(self):
+        """Запуск игры для старичка"""
         screensize = (700, 700)
         self.game.print_all_profiles()
         if self.clicked_profile():
