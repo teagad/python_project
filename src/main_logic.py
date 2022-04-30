@@ -11,11 +11,45 @@ pygame.init()
 
 
 class Game_logic():
+    """Хранит в себе логику самой игры
+    
+    1)Имеет методы
+    update_screen
+
+    print_all_profiles (Печатает профили игрока)
+
+    check_choosing_tamagochi (Смотрит на какой тамагочи кликнул игрок)
+
+    draw_background (Рисует задний фон)
+
+    place_tamagochi_picture (Располагает картинку тамагочи который выиграл на экран)
+
+    making_textbox (Создание текстбоксов)
+
+    render_textboxes (Вывод текст боксов на экран)
+
+    hunger_button_pressed (При нажатия на кнопку покормить опускает голод на 3)
+
+    live_button_pressed (При нажати на кнопку live начинает игру)
+
+    button_happy (При нажатия на кнопку обнять опускает голод на 3)
+
+    update_game(Обновляет экран(меняет голод и радость))
+
+    mouse_is_hovered_on_button (При наводки на кнопку меняет цвет)
+    
+    """
+
     def update_screen(self):
+        """Обновляет экран"""
         pygame.display.update()
 
     def print_all_profiles(self):
-        """Печатает профили игрока"""
+        """Печатает профили игрока
+
+                Возвращаемое значение:
+                    Возвращает 1 если существуют старые аккаунты,иначе 0
+        """
         profiles_str = []
         black = (0, 0, 0)
         Profile_array_rect = pygame.Rect(0, 0, 200, 64)
@@ -50,7 +84,15 @@ class Game_logic():
             return 0
 
     def check_choosing_tamagochi(self, mouse):
-        """Смотрит на какой тамагочи кликнул игрок"""
+        """Смотрит на какой тамагочи кликнул игрок
+
+                Параметры: 
+                     mouse: Позиция мышки
+
+                Возвращаемое значение:
+                    running(bool): True если тамагочи не выбрали иначе False
+        
+        """
         running = True
         first_tamagochi_coordinate_x = 0
         second_tamagochi_coordinate_x = 200
@@ -127,7 +169,11 @@ class Game_logic():
 
 
     def hunger_button_pressed(self, tamagochik):
-        """При нажатия на кнопку покормить опускает голод на 3"""
+        """При нажатия на кнопку покормить опускает голод на 3
+        
+            Параметры: 
+                tamagochik(Tamagochi): Наш тамагочи
+        """
         try:
             hunger_decrease_by_click = 3
             if tamagochik.hunger >= hunger_decrease_by_click:
@@ -169,7 +215,11 @@ class Game_logic():
             pass
 
     def live_button_pressed(self):
-        """При нажати на кнопку live начинает игру"""
+        """При нажати на кнопку live начинает игру И создаёт тамагочи
+
+            Возвращаемое значение:
+                tamagochik(Tamagochi): Наш тамагочи
+        """
         tamagochik = Tamagochi()
         tamagochik.getinfo(Globals.profile, Globals.winer)
         tamagochik.time = time.time()
@@ -212,7 +262,11 @@ class Game_logic():
         return tamagochik
 
     def button_happy(self, tamagochik):
-        """При нажатия на кнопку обнять опускает голод на 3"""
+        """При нажатия на кнопку обнять опускает голод на 3
+            Параметры: 
+                tamagochik(Tamagochi): Наш тамагочи
+        
+        """
         try:
             happines_limit_top = 20
             happines_increase_by_click = 3
@@ -244,7 +298,10 @@ class Game_logic():
             pass
 
     def update_game(self, tamagochik):
-        """Обновляет экран(меняет голод и радость)"""
+        """Обновляет экран(меняет голод и радость)
+            Параметры: 
+                tamagochik(Tamagochi): Наш тамагочи
+        """
         pygame.draw.rect(Globals.screen,
                          Globals.rectColor, Globals.hunger_rect)
         Globals.hunger_text_surface = Globals.base_font.render(
@@ -264,7 +321,11 @@ class Game_logic():
             Globals.happines_rect.y + Globals.first_line_y))
 
     def mouse_is_hovered_on_button(self, mouse):
-        """При наводки на кнопку меняет цвет"""
+        """При наводки на кнопку меняет цвет
+
+            Параметры: 
+                mouse: Позиция мышки
+        """
         for x, y, text in zip(
                 [Globals.button_x1, Globals.button_x2, Globals.button_x3],
                 [Globals.button_y1, Globals.button_y2, Globals.button_y3],

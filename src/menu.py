@@ -8,7 +8,24 @@ from src.main_logic import Game_logic
 pygame.init()
 
 class Menu:
+    """Наша менью
+    1)Имеет параметр
+    screen(pygame.Surface)
+
+    2)Имеет методы
+    screen_set (Создание экрана)
+
+    top_tamagochi (Выведения топа тамагочи на экран)
+
+    mouse_posesion (Анализатор позиции мышки)
+    
+    menu_event_loop (Event loop для menu)
+    """
     def __init__(self):
+        """
+        Параметры: 
+            screen(pygame.Surface)
+        """
         self.screen = ""
         self.screen_set()
         self.menu_event_loop()

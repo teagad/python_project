@@ -4,7 +4,23 @@ from src.globals import Globals
 pygame.init()
 
 class Event():
+    """Создана для выяснениянынешнего состояния питомца - голоден ли он, 
+    хочет поиграть, или всё хорошо
+
+    Методы:
+        hunger_death(Смерть от голода если голод достиг пика)
+        notice_about_hunger(Оповещение о голоде если тамагочи близок к смерти)
+        happines_death(Смерть от скуки если радость упало до 1)
+        very_borred(Оповещения о том что скука доходит до пика)
+        borred(Оповещения о скуки)
+        all_fine(Оповещения о том что всё хорошо )
+        events(Выяснения статуса тамагочи)
+    """
     def hunger_death(self, tamagochik):
+        """Смерть от голода если голод достиг пика
+            Параметры: 
+                tamagochik(Tamagochi): Наш тамагочи
+        """
         basic_hunger = 20
         basic_happines = 20
         time_sleep = 5
@@ -40,6 +56,7 @@ class Event():
         Globals.running = False
 
     def notice_about_hunger(self):
+        """Оповещение о голоде если тамагочи близок к смерти"""
         pygame.draw.rect(Globals.screen,
                          Globals.rectColor, Globals.status_rect)
         text_surface3 = Globals.base_font.render(
@@ -67,6 +84,10 @@ class Event():
                              Globals.status_rect.y + Globals.second_line_y))
 
     def happines_death(self, tamagochik):
+        """Смерть от скуки если радость упало до 1
+            Параметры: 
+                tamagochik(Tamagochi): Наш тамагочи
+        """
         basic_hunger = 20
         basic_happines = 20
         time_sleep = 5
@@ -99,6 +120,7 @@ class Event():
         Globals.running = False
 
     def very_borred(self):
+        """Оповещения о том что скука доходит до пика"""
         pygame.draw.rect(Globals.screen,
                          Globals.rectColor, Globals.status_rect)
         text_surface3 = Globals.base_font.render(
@@ -126,6 +148,7 @@ class Event():
                              Globals.status_rect.y + Globals.second_line_y))
 
     def borred(self):
+        """Оповещения о скуки"""
         pygame.draw.rect(Globals.screen,
                          Globals.rectColor, Globals.status_rect)
         text_surface3 = Globals.base_font.render(
@@ -153,6 +176,7 @@ class Event():
                              Globals.status_rect.y + Globals.second_line_y))
 
     def all_fine(self):
+        """Оповещения о том что всё хорошо"""
         pygame.draw.rect(Globals.screen,
                          Globals.rectColor, Globals.status_rect)
         text_surface3 = Globals.base_font.render(
@@ -180,8 +204,13 @@ class Event():
                                 Globals.status_rect.y + Globals.third_line_y))
 
     def events(self, tamagochik, delta=None):
+        """Выяснения статуса тамагочи
+            Параметры: 
+                tamagochik(Tamagochi): Наш тамагочи
+                delta(int):Разница времени между последним запуском и нынешним временем дефолтное значение None
+        """
         try:
-            delta_time = 1###############################
+            delta_time = 60
             hunger_limit = 40
             happines_limit = 1
             if delta:

@@ -7,13 +7,44 @@ from src.InputBox import InputBox as imbox
 from src.main_logic import Game_logic
 
 class Realization:
+    """Реализация игровой логики
+    
+    1)Имеет параметр 
+    game Класса Game_logic
+
+    2)Имеет методы
+    choosing_tamagochi (Располагает картинки всех тамагочи на экран чтобы выбрать)
+
+    event_loop_of_choosing_tamagochi (Event loop для выбора тамагочи)
+
+    main_event_loop (Основной event loop игры)
+
+    get_profiles_length (Находит длину названия каждого профиля )
+
+    clicked_profile (Ивент луп для выбора профиля)
+
+    check_profiles_count (Проверка на то может ли игрок создать нового персонажа)
+
+    start_new_profile (Запуск игры для новичка)
+
+    start_old_profile (Запуск игры для старичка)
+    """
 
     def __init__(self):
-        self.game = Game_logic()
+       """" 
+       Параметры: 
+            game(Game_logic)
+       """
+       self.game = Game_logic()
 
     # choosing tamagochi
     def choosing_tamagochi(self, old=1):
-        """Располагает картинки всех тамагочи на экран чтобы выбрать"""
+        """Располагает картинки всех тамагочи на экран чтобы выбрать
+
+            Параметры: 
+                old(int): 1 Если игрок новый, 0 если кже играл
+        
+        """
         first_tamagochi_coordinate_x = 0
         second_tamagochi_coordinate_x = 200
         third_tamagochi_coordinate_x = 400
@@ -35,7 +66,10 @@ class Realization:
         pygame.display.update()
 
     def event_loop_of_choosing_tamagochi(self, old=1):
-        """Event loop для выбора тамагочи"""
+        """Event loop для выбора тамагочи
+            Параметры: 
+                old(int): 1 Если игрок новый, 0 если кже играл
+        """
         running = True
         input_box1 = imbox(250, 600, 300, 64)
         Colordelete = (30, 30, 30)
@@ -100,7 +134,12 @@ class Realization:
             self.game.update_screen()
 
     def get_profiles_length(self):
-        """Находит длину названия каждого профиля """
+        """Находит длину названия каждого профиля 
+
+            Возвращаемое значение:
+                profiles_str(dict): Словарь где ключи это название профилей а значения их длинна
+
+        """
         black = (0, 0, 0)
         profiles_str = {}
         with open('data.pickle', 'rb') as f:
@@ -118,7 +157,10 @@ class Realization:
             return profiles_str
 
     def clicked_profile(self):
-        """Ивент луп для выбора профиля"""
+        """Ивент луп для выбора профиля
+                Возвращаемое значение:
+                    1 если нажали на какой то профиль
+        """
         running = True
         text = "Profiles : "
         black = (0,0,0)
@@ -152,7 +194,10 @@ class Realization:
             pygame.display.update()
 
     def check_profiles_count(self):
-        """Проверка на то может ли игрок создать нового персонажа"""
+        """Проверка на то может ли игрок создать нового персонажа
+                Возвращаемое значение:
+                    1 если можно создать профиль 0 иначе
+        """
         profiles_str = []
         red = (255, 0, 0)
         legal_profiles_count = 2

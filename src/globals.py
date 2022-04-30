@@ -2,6 +2,8 @@ import pygame
 pygame.init()
 
 class Globals:
+    """Создан для хранения глобальных переменных"""
+    
     tamagochis = {"tamagochi1": "assets/tamagochi1.png",
                   "tamagochi2": "assets/tamagochi2.png",
                   "tamagochi3": "assets/tamagochi3.png"}

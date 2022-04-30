@@ -5,8 +5,33 @@ pg = pygame
 
 
 class InputBox:
+    """Создан для ввода текста пользователями
+    
+    1)Имеет параметры 
+    rect(pygame.Rect),color(pygame.Color),text(str),txt_surface(pygame.Surface),active(bool)
+
+    2)Имеет методы 
+    handle_event(считывает event при нажатие мышкой на него переводится в активное состояние,при нажатие enter сохраняет текст,при нажатие backspace удаляет последний символ)
+    update  (Обновляет размеры InputBox если вышли за его рамки)
+    draw    (Чертит нашу коробку) 
+    
+    """
 
     def __init__(self, x, y, w, h, text=''):
+        """
+        Параметры:
+        ----------
+        rect(pygame.Rect):
+            Наша коробка для ввода
+        color(pygame.Color):
+            зелёный  цвет
+        text(str):
+            Текст который вводят
+        txt_surface(pygame.Surface):
+            Текст который вводят
+        active(bool):
+            Можно ли вводить текст
+        """
         self.rect = pg.Rect(x, y, w, h)
         self.color = pg.Color('green')
         self.text = text
@@ -17,7 +42,17 @@ class InputBox:
     def handle_event(self, event):
         """(считывает event при нажатие мышкой на него переводится в активное состояние,
         при нажатие enter сохраняет текст,
-        при нажатие backspace удаляет последний символ"""
+        при нажатие backspace удаляет последний символ
+
+            Параметры: 
+                event(Event)
+
+            Возвращаемое значение:
+                x(str): имя профиля
+
+        
+        """
+        print(type(event))
         COLOR_INACTIVE = pg.Color('green')
         COLOR_ACTIVE = pg.Color('dodgerblue2')
         if event.type == pg.MOUSEBUTTONDOWN:
@@ -54,7 +89,11 @@ class InputBox:
         self.rect.w = width
 
     def draw(self, screen):
-        """Чертит нашу коробку"""
+        """Чертит нашу коробку
+
+                Параметры: 
+                    screen(pygame.Surface): наш экран 
+        """
         FONT = pg.font.Font(None, 32)
         # Blit the rect.
         pg.draw.rect(screen, self.color, self.rect, 2)
