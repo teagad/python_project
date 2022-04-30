@@ -52,7 +52,6 @@ class InputBox:
 
         
         """
-        print(type(event))
         COLOR_INACTIVE = pg.Color('green')
         COLOR_ACTIVE = pg.Color('dodgerblue2')
         if event.type == pg.MOUSEBUTTONDOWN:
