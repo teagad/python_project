@@ -37,12 +37,12 @@ class Event():
             f"The game will end in {time_sleep} sec",
             True,
             Globals.color_basic)
-        Globals.screen.blit(text_surface3,
-                            (Globals.status_rect.x + Globals.first_line_x,
-                             Globals.status_rect.y + Globals.first_line_y))
-        Globals.screen.blit(text_surface4,
-                            (Globals.status_rect.x + Globals.second_line_x,
-                             Globals.status_rect.y + Globals.second_line_y))
+        Globals.screen.blit(text_surface3, (
+            Globals.status_rect.x + Globals.first_line_x,
+            Globals.status_rect.y + Globals.first_line_y))
+        Globals.screen.blit(text_surface4, (
+            Globals.status_rect.x + Globals.second_line_x,
+            Globals.status_rect.y + Globals.second_line_y))
         pygame.display.update()
         tamagochik.to_top()
         tamagochik.setinfo(
@@ -70,15 +70,15 @@ class Event():
             "i am hungry!",
             True, Globals.color_basic
         )
-        Globals.screen.blit(text_surface2,
-                            (Globals.status_rect.x + Globals.third_line_x,
-                             Globals.status_rect.y + Globals.third_line_y))
-        Globals.screen.blit(text_surface3,
-                            (Globals.status_rect.x + Globals.first_line_x,
-                             Globals.status_rect.y + Globals.first_line_y))
-        Globals.screen.blit(text_surface4,
-                            (Globals.status_rect.x + Globals.second_line_x,
-                             Globals.status_rect.y + Globals.second_line_y))
+        Globals.screen.blit(text_surface2, (
+            Globals.status_rect.x + Globals.third_line_x,
+            Globals.status_rect.y + Globals.third_line_y))
+        Globals.screen.blit(text_surface3, (
+            Globals.status_rect.x + Globals.first_line_x,
+            Globals.status_rect.y + Globals.first_line_y))
+        Globals.screen.blit(text_surface4, (
+            Globals.status_rect.x + Globals.second_line_x,
+            Globals.status_rect.y + Globals.second_line_y))
 
     def happines_death(self, tamagochik):
         """Смерть от скуки если радость упало до 1
@@ -97,12 +97,12 @@ class Event():
             f"The game will end in {time_sleep} sec", True,
             Globals.color_basic
         )
-        Globals.screen.blit(text_surface3,
-                            (Globals.status_rect.x + Globals.first_line_x,
-                             Globals.status_rect.y + Globals.first_line_y))
-        Globals.screen.blit(text_surface4,
-                            (Globals.status_rect.x + Globals.second_line_x,
-                             Globals.status_rect.y + Globals.second_line_y))
+        Globals.screen.blit(text_surface3, (
+            Globals.status_rect.x + Globals.first_line_x,
+            Globals.status_rect.y + Globals.first_line_y))
+        Globals.screen.blit(text_surface4, (
+            Globals.status_rect.x + Globals.second_line_x,
+            Globals.status_rect.y + Globals.second_line_y))
         pygame.display.update()
         tamagochik.to_top()
         tamagochik.setinfo(
