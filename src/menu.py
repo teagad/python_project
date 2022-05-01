@@ -1,11 +1,12 @@
 import time
-from numpy import sort
 import pygame
 from src.background import Background
 from src.globals import Globals
 from src.main_realization import Realization
 from src.main_logic import Game_logic
+
 pygame.init()
+
 
 class Menu:
     """Наша менью
@@ -21,6 +22,7 @@ class Menu:
     
     menu_event_loop (Event loop для menu)
     """
+
     def __init__(self):
         """
         Параметры: 
@@ -50,8 +52,8 @@ class Menu:
         x = 15
         y = 30
         self.screen = pygame.display.set_mode(display_size)
-        BackGround = Background('assets/background_image.png', [0, 0])
-        self.screen.blit(BackGround.image, BackGround.rect)
+        back_ground = Background('assets/background_image.png', [0, 0])
+        self.screen.blit(back_ground.image, back_ground.rect)
         pygame.display.set_caption("menu")
         pygame.draw.rect(self.screen, (silver), Globals.new_profile_C)
         pygame.draw.rect(self.screen, (silver), Globals.old_profile_C)
@@ -67,9 +69,9 @@ class Menu:
     def top_tamagochi(self):
         """Выведения топа тамагочи на экран"""
         display_size = (500, 500)
-        BackGround = Background('assets/background_image.png', [0, 0])
+        back_ground = Background('assets/background_image.png', [0, 0])
         self.screen = pygame.display.set_mode(display_size)
-        self.screen.blit(BackGround.image, BackGround.rect)
+        self.screen.blit(back_ground.image, back_ground.rect)
         # try:
         array = []
         profiles = []

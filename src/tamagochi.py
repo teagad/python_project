@@ -14,6 +14,7 @@ class Tamagochi:
     coverter(для перевода hh:mm:ss в s)
     to_top(Записывать время жизни в top.txt)
     """
+
     def __init__(self):
         """
         параметры :

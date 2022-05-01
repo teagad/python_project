@@ -6,6 +6,7 @@ from src.globals import Globals
 from src.InputBox import InputBox as imbox
 from src.main_logic import Game_logic
 
+
 class Realization:
     """Реализация игровой логики
     
@@ -31,11 +32,11 @@ class Realization:
     """
 
     def __init__(self):
-       """" 
-       Параметры: 
-            game(Game_logic)
-       """
-       self.game = Game_logic()
+        """"
+        Параметры:
+             game(Game_logic)
+        """
+        self.game = Game_logic()
 
     # choosing tamagochi
     def choosing_tamagochi(self, old=1):
@@ -50,8 +51,8 @@ class Realization:
         third_tamagochi_coordinate_x = 400
         coordinate_y = 100
         tamagochi_coords = [(first_tamagochi_coordinate_x, coordinate_y),
-                    (second_tamagochi_coordinate_x, coordinate_y),
-                    (third_tamagochi_coordinate_x, coordinate_y)]
+                            (second_tamagochi_coordinate_x, coordinate_y),
+                            (third_tamagochi_coordinate_x, coordinate_y)]
         BackGround = Background('assets/background_image.png', [0, 0])
         Globals.screen.blit(BackGround.image, BackGround.rect)
         if old:
@@ -87,7 +88,7 @@ class Realization:
                         Globals.profile = x
                     input_box1.update()
                     pygame.draw.rect(Globals.screen,
-                                     (Colordelete),
+                                     Colordelete,
                                      input_box1.rect
                                      )
                     input_box1.draw(Globals.screen)
@@ -163,7 +164,7 @@ class Realization:
         """
         running = True
         text = "Profiles : "
-        black = (0,0,0)
+        black = (0, 0, 0)
         text_surface = Globals.profile_text_font.render(
             text, True,
             black
@@ -209,7 +210,9 @@ class Realization:
                     if profile[0][0] not in profiles_str:
                         profiles_str += [profile[0][0]]
                 if len(profiles_str) > legal_profiles_count:
-                    Profile_array_rect = pygame.Rect(0, 450, 200, 64)
+                    coords = (0, 450)
+                    dimensions = (200, 64)
+                    profile_array_rect = pygame.Rect(coords, dimensions)
                     profile_array = 'maximum count of profiles is 3'
                     profile_array_text_surface = Globals.profile_text_font.render(
                         profile_array, True,
@@ -217,7 +220,7 @@ class Realization:
                     )
                     Globals.screen.blit(
                         profile_array_text_surface,
-                        Profile_array_rect
+                        profile_array_rect
                     )
                     return 0
                 return 1

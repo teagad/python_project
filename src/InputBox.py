@@ -52,8 +52,8 @@ class InputBox:
 
         
         """
-        COLOR_INACTIVE = pg.Color('green')
-        COLOR_ACTIVE = pg.Color('dodgerblue2')
+        color_inactive = pg.Color('green')
+        color_active = pg.Color('dodgerblue2')
         if event.type == pg.MOUSEBUTTONDOWN:
             # If the user clicked on the input_box rect.
             if self.rect.collidepoint(event.pos):
@@ -62,7 +62,7 @@ class InputBox:
             else:
                 self.active = False
             # Change the current color of the input box.
-            self.color = COLOR_ACTIVE if self.active else COLOR_INACTIVE
+            self.color = color_active if self.active else color_inactive
         if event.type == pg.KEYDOWN:
             if self.active:
                 if event.key == pg.K_RETURN:
@@ -93,14 +93,14 @@ class InputBox:
                 Параметры: 
                     screen(pygame.Surface): наш экран 
         """
-        FONT = pg.font.Font(None, 32)
+        font = pg.font.Font(None, 32)
         # Blit the rect.
         pg.draw.rect(screen, self.color, self.rect, 2)
         # Re-render the text.
-        self.txt_surface = FONT.render(self.text, True, self.color)
+        self.txt_surface = font.render(self.text, True, self.color)
         # Blit the text.
         delta_x = 5
         delta_y = 5
         screen.blit(self.txt_surface, (self.rect.x + delta_x,
-                                         self.rect.y + delta_y))
+                                       self.rect.y + delta_y))
         pygame.display.update()

@@ -1,7 +1,9 @@
 import pygame
 import time
 from src.globals import Globals
+
 pygame.init()
+
 
 class Event():
     """Создана для выяснениянынешнего состояния питомца - голоден ли он, 
@@ -16,6 +18,7 @@ class Event():
         all_fine(Оповещения о том что всё хорошо )
         events(Выяснения статуса тамагочи)
     """
+
     def hunger_death(self, tamagochik):
         """Смерть от голода если голод достиг пика
             Параметры: 
@@ -26,21 +29,17 @@ class Event():
         time_sleep = 5
         pygame.draw.rect(Globals.screen,
                          Globals.rectColor,
-                         Globals.status_rect
-                         )
+                         Globals.status_rect)
         text_surface3 = Globals.base_font.render(
             "your Masha died ", True,
-            Globals.color_basic
-        )
+            Globals.color_basic)
         text_surface4 = Globals.base_font.render(
             f"The game will end in {time_sleep} sec",
             True,
-            Globals.color_basic
-        )
+            Globals.color_basic)
         Globals.screen.blit(text_surface3,
-                            (
-                                Globals.status_rect.x + Globals.first_line_x,
-                                Globals.status_rect.y + Globals.first_line_y))
+                            (Globals.status_rect.x + Globals.first_line_x,
+                             Globals.status_rect.y + Globals.first_line_y))
         Globals.screen.blit(text_surface4,
                             (Globals.status_rect.x + Globals.second_line_x,
                              Globals.status_rect.y + Globals.second_line_y))
@@ -72,13 +71,11 @@ class Event():
             True, Globals.color_basic
         )
         Globals.screen.blit(text_surface2,
-                            (
-                                Globals.status_rect.x + Globals.third_line_x,
-                                Globals.status_rect.y + Globals.third_line_y))
+                            (Globals.status_rect.x + Globals.third_line_x,
+                             Globals.status_rect.y + Globals.third_line_y))
         Globals.screen.blit(text_surface3,
-                            (
-                                Globals.status_rect.x + Globals.first_line_x,
-                                Globals.status_rect.y + Globals.first_line_y))
+                            (Globals.status_rect.x + Globals.first_line_x,
+                             Globals.status_rect.y + Globals.first_line_y))
         Globals.screen.blit(text_surface4,
                             (Globals.status_rect.x + Globals.second_line_x,
                              Globals.status_rect.y + Globals.second_line_y))
@@ -91,8 +88,7 @@ class Event():
         basic_hunger = 20
         basic_happines = 20
         time_sleep = 5
-        pygame.draw.rect(Globals.screen,
-                         Globals.rectColor, Globals.status_rect)
+        pygame.draw.rect(Globals.screen, Globals.rectColor, Globals.status_rect)
         text_surface3 = Globals.base_font.render(
             "Your pet died from lonliness!", True,
             Globals.color_basic
@@ -102,9 +98,8 @@ class Event():
             Globals.color_basic
         )
         Globals.screen.blit(text_surface3,
-                            (
-                                Globals.status_rect.x + Globals.first_line_x,
-                                Globals.status_rect.y + Globals.first_line_y))
+                            (Globals.status_rect.x + Globals.first_line_x,
+                             Globals.status_rect.y + Globals.first_line_y))
         Globals.screen.blit(text_surface4,
                             (Globals.status_rect.x + Globals.second_line_x,
                              Globals.status_rect.y + Globals.second_line_y))
@@ -135,17 +130,15 @@ class Event():
             "Nobody loves me!",
             True, Globals.color_basic
         )
-        Globals.screen.blit(text_surface2,
-                            (
-                                Globals.status_rect.x + Globals.third_line_x,
-                                Globals.status_rect.y + Globals.third_line_y))
-        Globals.screen.blit(text_surface3,
-                            (
-                                Globals.status_rect.x + Globals.first_line_x,
-                                Globals.status_rect.y + Globals.first_line_y))
-        Globals.screen.blit(text_surface4,
-                            (Globals.status_rect.x + Globals.second_line_x,
-                             Globals.status_rect.y + Globals.second_line_y))
+        Globals.screen.blit(text_surface2, (
+            Globals.status_rect.x + Globals.third_line_x,
+            Globals.status_rect.y + Globals.third_line_y))
+        Globals.screen.blit(text_surface3, (
+            Globals.status_rect.x + Globals.first_line_x,
+            Globals.status_rect.y + Globals.first_line_y))
+        Globals.screen.blit(text_surface4, (
+            Globals.status_rect.x + Globals.second_line_x,
+            Globals.status_rect.y + Globals.second_line_y))
 
     def borred(self):
         """Оповещения о скуки"""
@@ -153,27 +146,22 @@ class Event():
                          Globals.rectColor, Globals.status_rect)
         text_surface3 = Globals.base_font.render(
             f"status:game started",
-            True, Globals.color_basic
-        )
+            True, Globals.color_basic)
         text_surface4 = Globals.base_font.render(
             f"Masha stats will drop in a minute",
-            True, Globals.color_basic
-        )
+            True, Globals.color_basic)
         text_surface2 = Globals.base_font.render(
             "I’m bored!",
-            True, Globals.color_basic
-        )
-        Globals.screen.blit(text_surface2,
-                            (
-                                Globals.status_rect.x + Globals.third_line_x,
-                                Globals.status_rect.y + Globals.third_line_y))
-        Globals.screen.blit(text_surface3,
-                            (
-                                Globals.status_rect.x + Globals.first_line_x,
-                                Globals.status_rect.y + Globals.first_line_y))
-        Globals.screen.blit(text_surface4,
-                            (Globals.status_rect.x + Globals.second_line_x,
-                             Globals.status_rect.y + Globals.second_line_y))
+            True, Globals.color_basic)
+        Globals.screen.blit(text_surface2, (
+            Globals.status_rect.x + Globals.third_line_x,
+            Globals.status_rect.y + Globals.third_line_y))
+        Globals.screen.blit(text_surface3, (
+            Globals.status_rect.x + Globals.first_line_x,
+            Globals.status_rect.y + Globals.first_line_y))
+        Globals.screen.blit(text_surface4, (
+            Globals.status_rect.x + Globals.second_line_x,
+            Globals.status_rect.y + Globals.second_line_y))
 
     def all_fine(self):
         """Оповещения о том что всё хорошо"""
@@ -191,17 +179,15 @@ class Event():
             "It`s all okay!",
             True, Globals.color_basic
         )
-        Globals.screen.blit(text_surface3,
-                            (
-                                Globals.status_rect.x + Globals.first_line_x,
-                                Globals.status_rect.y + Globals.first_line_y))
-        Globals.screen.blit(text_surface4,
-                            (Globals.status_rect.x + Globals.second_line_x,
-                             Globals.status_rect.y + Globals.second_line_y))
-        Globals.screen.blit(text_surface2,
-                            (
-                                Globals.status_rect.x + Globals.third_line_x,
-                                Globals.status_rect.y + Globals.third_line_y))
+        Globals.screen.blit(text_surface3, (
+            Globals.status_rect.x + Globals.first_line_x,
+            Globals.status_rect.y + Globals.first_line_y))
+        Globals.screen.blit(text_surface4, (
+            Globals.status_rect.x + Globals.second_line_x,
+            Globals.status_rect.y + Globals.second_line_y))
+        Globals.screen.blit(text_surface2, (
+            Globals.status_rect.x + Globals.third_line_x,
+            Globals.status_rect.y + Globals.third_line_y))
 
     def events(self, tamagochik, delta=None):
         """Выяснения статуса тамагочи
